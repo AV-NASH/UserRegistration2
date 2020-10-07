@@ -27,7 +27,16 @@ public class UserRegistration {
     }
 
     public static boolean checkRegex(String regex,String userinput){
-        return Pattern.matches(regex,userinput);
+        boolean check=Pattern.matches(regex,userinput);
+        try{
+            if(!check){throw new InvalidDetailException("InvalidDetailException, you have entered an invalid detail");}
+        }
+        catch (InvalidDetailException e) {
+            System.out.println(e.getMessage());
+        }
+        finally {
+            return check;
+        }
     }
 
     public static String checkFirstName() {
@@ -38,7 +47,7 @@ public class UserRegistration {
             firstname = scanner.nextLine();
             check = checkRegex(regexfirstname, firstname);
             if (!check)
-                System.out.println("Invalid name please enter valid name");
+                System.out.println("please enter valid first name");
         } while (!check);
         return firstname;
 
@@ -52,7 +61,7 @@ public class UserRegistration {
             lastname = scanner.nextLine();
             check = checkRegex(regexlastname, lastname);
             if (!check)
-                System.out.println("Invalid name please enter valid name");
+                System.out.println("please enter valid last name");
         } while (!check);
         return lastname;
 
@@ -67,7 +76,7 @@ public class UserRegistration {
 
             check = checkRegex(regexemailid,email);
             if (!check)
-                System.out.println("Invalid name please enter valid email");
+                System.out.println("please enter valid email");
         } while (!check);
         return email;
 
@@ -81,7 +90,7 @@ public class UserRegistration {
             phonenumber = scanner.nextLine();
             check = checkRegex(regexphonenumber, phonenumber);
             if (!check)
-                System.out.println("Invalid name please enter phone number");
+                System.out.println("please enter phone number");
         } while (!check);
         return phonenumber;
     }
@@ -94,7 +103,7 @@ public class UserRegistration {
             password = scanner.nextLine();
             check = checkRegex(regexpassword, password);
             if (!check)
-                System.out.println("Invalid name please enter valid password");
+                System.out.println("please enter valid password");
         } while (!check);
         return password;
 
