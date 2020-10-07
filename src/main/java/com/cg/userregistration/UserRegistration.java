@@ -27,12 +27,18 @@ public class UserRegistration {
     }
 
     public static boolean checkRegex(String regex,String userinput){
-        boolean check=Pattern.matches(regex,userinput);
+
+        boolean check=false;
+
         try{
-            if(!check){throw new InvalidDetailException("InvalidDetailException, you have entered an invalid detail");}
+            check=Pattern.matches(regex,userinput);
+            if(!check){throw new InvalidDetailException("InvalidDetailException, you have entered in an invalid format");}
         }
         catch (InvalidDetailException e) {
             System.out.println(e.getMessage());
+        }
+        catch (NullPointerException e) {
+            System.out.println("Invalid detail, null values are not allowed");
         }
         finally {
             return check;
@@ -45,7 +51,7 @@ public class UserRegistration {
         do {
             System.out.println("enter first name");
             firstname = scanner.nextLine();
-            check = checkRegex(regexfirstname, firstname);
+            check = checkRegex(regexfirstname,firstname);
             if (!check)
                 System.out.println("please enter valid first name");
         } while (!check);
