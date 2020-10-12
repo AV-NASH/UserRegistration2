@@ -13,23 +13,37 @@ public class UserRegistration {
 
     public static void main(String[] args) {
         System.out.println("Welcome to the user registration program\n");
-        userInterface();
+        UserRegistration userRegistration=new UserRegistration();
+        userRegistration.userInterface();
         scanner.close();
     }
-    public static void userInterface() {
-        String firstname = checkFirstName();
-        String lastname = checkLastName();
-        String email = checkEmailAddress();
-        String phonenumber = checkPhoneNumber();
-        String password = checkPassword();
+    public void userInterface() {
+        UserRegistrationInterface userRegistrationInterface=(regex,detail)->{
+            String userDetail;
+            boolean check;
+            do {
+                System.out.println("enter "+detail);
+                userDetail = scanner.nextLine();
+                check = checkRegex(regex, userDetail);
+                if (!check)
+                    System.out.println("please enter valid "+detail);
+            } while (!check);
+            return userDetail;};
+
+        String firstname = userRegistrationInterface.userDetails(regexfirstname,"First name");
+        String lastname = userRegistrationInterface.userDetails(regexlastname,"last name");
+        String email = userRegistrationInterface.userDetails(regexemailid,"Email-ID");
+        String phonenumber = userRegistrationInterface.userDetails(regexphonenumber,"Phone Number");
+        String password = userRegistrationInterface.userDetails(regexpassword,"Password");
         System.out.println("Thank you for registration");
     }
 
-    public static boolean checkRegex(String regex,String userinput){
+    public boolean checkRegex(String regex,String userinput){
 
         boolean check=false;
+        checkRegexInterface checkRegexInterface=(regexString,userString)->Pattern.matches(regexString,userString);
         try{
-            check= Pattern.matches(regex,userinput);
+            check= checkRegexInterface.checkRegex(regex,userinput);
             if(!check){throw new InvalidDetailException("InvalidDetailException, you have entered in an invalid format");}
         }
 
@@ -42,73 +56,4 @@ public class UserRegistration {
         }
     }
 
-    public static String checkFirstName() {
-        String firstname;
-        boolean check;
-        do {
-            System.out.println("enter first name");
-            firstname = scanner.nextLine();
-            check = checkRegex(regexfirstname,firstname);
-            if (!check)
-                System.out.println("please enter valid first name");
-        } while (!check);
-        return firstname;
-
-    }
-
-    public static String checkLastName() {
-        String lastname;
-        boolean check;
-        do {
-            System.out.println("enter last name");
-            lastname = scanner.nextLine();
-            check = checkRegex(regexlastname, lastname);
-            if (!check)
-                System.out.println("please enter valid last name");
-        } while (!check);
-        return lastname;
-
-    }
-
-    public static String checkEmailAddress() {
-        String email;
-        boolean check;
-        do {
-            System.out.println("enter email address");
-            email = scanner.nextLine();
-
-            check = checkRegex(regexemailid,email);
-            if (!check)
-                System.out.println("please enter valid email");
-        } while (!check);
-        return email;
-
-    }
-
-    public static String checkPhoneNumber() {
-        String phonenumber;
-        boolean check;
-        do {
-            System.out.println("enter phone number");
-            phonenumber = scanner.nextLine();
-            check = checkRegex(regexphonenumber, phonenumber);
-            if (!check)
-                System.out.println("please enter phone number");
-        } while (!check);
-        return phonenumber;
-    }
-
-    public static String checkPassword() {
-        String password;
-        boolean check;
-        do {
-            System.out.println("enter password");
-            password = scanner.nextLine();
-            check = checkRegex(regexpassword, password);
-            if (!check)
-                System.out.println("please enter valid password");
-        } while (!check);
-        return password;
-
-    }
 }
