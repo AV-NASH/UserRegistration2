@@ -16,7 +16,6 @@ public class UserRegistration {
         userInterface();
         scanner.close();
     }
-
     public static void userInterface() {
         String firstname = checkFirstName();
         String lastname = checkLastName();
@@ -29,16 +28,14 @@ public class UserRegistration {
     public static boolean checkRegex(String regex,String userinput){
 
         boolean check=false;
-
         try{
-            check=Pattern.matches(regex,userinput);
+            check= Pattern.matches(regex,userinput);
             if(!check){throw new InvalidDetailException("InvalidDetailException, you have entered in an invalid format");}
         }
-        catch (InvalidDetailException e) {
-            System.out.println(e.getMessage());
-        }
+
+
         catch (NullPointerException e) {
-            System.out.println("Invalid detail, null values are not allowed");
+            throw new InvalidDetailException("InvalidDetailException, you have entered in an invalid format");
         }
         finally {
             return check;

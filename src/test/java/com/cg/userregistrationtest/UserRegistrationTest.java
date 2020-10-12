@@ -1,5 +1,6 @@
 package com.cg.userregistrationtest;
 
+import com.cg.userregistration.InvalidDetailException;
 import com.cg.userregistration.UserRegistration;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,10 +16,14 @@ public class UserRegistrationTest {
     }
 
     @Test
-    public void whenfirstname_false_returnsad() {
+    public void whenfirstname_false_throwException() {
         UserRegistration  useregistrartion=new UserRegistration();
-        boolean  checkfirstname=useregistrartion.checkRegex(useregistrartion.regexfirstname,"avinash");
-        Assert.assertFalse("Sad",checkfirstname);
+        try{
+        boolean  checkfirstname=useregistrartion.checkRegex(useregistrartion.regexfirstname,null);
+        } catch (InvalidDetailException e) {
+            Assert.assertEquals("InvalidDetailException, you have entered in an invalid format",e.getMessage());
+        }
+
     }
 
     @Test
@@ -28,10 +33,14 @@ public class UserRegistrationTest {
         Assert.assertTrue("Happy",checklastname);
     }
     @Test
-    public void whenlastname_false_returnsad() {
+    public void whenlastname_false_throwException() {
         UserRegistration  useregistrartion=new UserRegistration();
-        boolean  checklastname=useregistrartion.checkRegex(useregistrartion.regexlastname,"singh");
-        Assert.assertFalse("Sad",checklastname);
+        try{
+            boolean  checcklastnmae=useregistrartion.checkRegex(useregistrartion.regexlastname,null);
+        } catch (InvalidDetailException e) {
+            Assert.assertEquals("InvalidDetailException, you have entered in an invalid format",e.getMessage());
+        }
+
     }
     @Test
     public void whenemailid_true_returnhappy() {
@@ -40,10 +49,14 @@ public class UserRegistrationTest {
         Assert.assertTrue("Happy",checkemailid);
     }
     @Test
-    public void whenemailid_faslse_returnsad() {
+    public void whenemailid_faslse_throwException() {
         UserRegistration  useregistrartion=new UserRegistration();
-        boolean  checkemailid=useregistrartion.checkRegex(useregistrartion.regexemailid,"avi..@gmail.com");
-        Assert.assertFalse("Sad",checkemailid);
+        try{
+            boolean  checkemailid=useregistrartion.checkRegex(useregistrartion.regexemailid,null);
+        } catch (InvalidDetailException e) {
+            Assert.assertEquals("InvalidDetailException, you have entered in an invalid format",e.getMessage());
+        }
+
     }
     @Test
     public void whenphonenumber_true_returnhappy() {
@@ -52,10 +65,14 @@ public class UserRegistrationTest {
         Assert.assertTrue("Happy",checkphonenumber);
     }
     @Test
-    public void whenphonenumber_false_returnsad() {
+    public void whenphonenumber_false_throwException() {
         UserRegistration  useregistrartion=new UserRegistration();
-        boolean  checkphonenumber=useregistrartion.checkRegex(useregistrartion.regexphonenumber,"9988554477");
-        Assert.assertFalse("Sad",checkphonenumber);
+        try{
+            boolean  checkphonenumber=useregistrartion.checkRegex(useregistrartion.regexphonenumber,null);
+        } catch (InvalidDetailException e) {
+            Assert.assertEquals("InvalidDetailException, you have entered in an invalid format",e.getMessage());
+        }
+
     }
     @Test
     public void whenppassword_true_returnhappy() {
@@ -64,9 +81,13 @@ public class UserRegistrationTest {
         Assert.assertTrue("Happy",checkpassword);
     }
     @Test
-    public void whenppassword_false_returnsad() {
+    public void whenppassword_false_throwException() {
         UserRegistration  useregistrartion=new UserRegistration();
-        boolean  checkpassword=useregistrartion.checkRegex(useregistrartion.regexpassword,"acssfsd343");
-        Assert.assertFalse("Sad",checkpassword);
+        try{
+            boolean  checkpassword=useregistrartion.checkRegex(useregistrartion.regexpassword,null);
+        } catch (InvalidDetailException e) {
+            Assert.assertEquals("InvalidDetailException, you have entered in an invalid format",e.getMessage());
+        }
+
     }
 }
